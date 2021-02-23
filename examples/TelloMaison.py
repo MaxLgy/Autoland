@@ -64,7 +64,7 @@ class Telloperso():
     
     def testrc(self):
         #self.tello.send_rc_control(20, 0, -20, 30)
-        self.tello.send_rc_control(0,0,0,50)
+        self.tello.send_rc_control(0,0,0,0)
         time.sleep(5)
 
 

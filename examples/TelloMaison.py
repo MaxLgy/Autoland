@@ -3,7 +3,9 @@ import os
 #print(os.getcwd())
 import tello
 import time
+import roblib
 from numpy import cos,sin,pi
+
 
 class Telloperso():
     def __init__(self):
@@ -67,4 +69,11 @@ class Telloperso():
         self.tello.send_rc_control(0,0,0,0)
         time.sleep(5)
 
+    def state_vector(self):
+        return array([[self.x], [self.y], [self.z]])
 
+    def Rotation_matrix(self):
+        φ = self.tello.get_state_field('pitch')
+        θ = self.tello.get_state_field('roll')
+        ψ = self.tello.get_state_field('yaw')
+        return eulermat(φ,θ,ψ)

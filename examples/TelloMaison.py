@@ -2,6 +2,7 @@ from djitellopy import Tello
 import time
 from numpy import cos,sin,pi
 
+
 class Telloperso():
 	def __init__(self):
 		self.tello = Tello()

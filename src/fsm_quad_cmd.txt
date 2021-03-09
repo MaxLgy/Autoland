@@ -1,0 +1,14 @@
+----- States
+Init
+Idle
+----- Transitions
+Init Idle wait main.doWait
+Idle Idle wait main.doWait
+----- Events
+wait
+---- Start State
+Init
+---- Start Event
+wait
+---- End State
+End

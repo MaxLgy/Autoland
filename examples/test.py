@@ -1,4 +1,4 @@
-from djitellopy import Tello
+from tello import Tello
 import time
 # see: damiafuentes/DJITelloPy
 
@@ -28,8 +28,8 @@ tello.move_forward(50)
 """
 
 # time.sleep(1)
-print("Move forward X cm")
-tello.move_forward(500)
+#print("Move forward X cm")
+#tello.move_forward(500)
 #
 # # time.sleep(1)
 # print("Rotate clockwise")

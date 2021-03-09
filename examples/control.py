@@ -14,6 +14,10 @@ print(f"Battery Life Pecentage: {tello.get_battery()}")
 
 print("Takeoff - hoser!")
 tello.takeoff()
+print("x= ", tello.get_state_field('x'))
+print("y= ", tello.get_state_field('y'))
+print("z= ", tello.get_state_field('z'))
+print("-------------------")
 time.sleep(3)
 
 v0 = 100 # 100cm/seconde
@@ -29,11 +33,18 @@ dist = int(100*m.sqrt(2))
 # tello.rotate_clockwise(360) #60degre/second
 # time.sleep(2)
 # tello.move_forward(dist)
-tello.move_up(100)
+tello.move_up(50)
+print("x= ", tello.get_state_field('x'))
+print("y= ", tello.get_state_field('y'))
+print("z= ", tello.get_state_field('z'))
+print("-------------------")
 time.sleep(1)
-tello.move_down(100)
+tello.move_forward(40)
 # time.sleep(1)
-
+print("x= ", tello.get_state_field('x'))
+print("y= ", tello.get_state_field('y'))
+print("z= ", tello.get_state_field('z'))
+print("-------------------")
 
 time.sleep(1)
 

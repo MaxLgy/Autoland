@@ -22,14 +22,14 @@ def draw_shampoing(p):
 	p = p.flatten()
 	ax.plot([p[0],p[0]+Q[0]],[p[1],p[1]+Q[1]],[p[2],p[2]+Q[2]],'g-') #champ au point p 
 
-a = array([[0,0,1]])	
+a = array([[0,5,0]])
 b = array([[1,0,0]])
 c = array([[0,1,0]])
 
 n = vct_nrm(a,b,c)
 print("vecteur normal = ",n)
-phat = array([[0],[0],[0]]) #position point d'attérissage
-p = array([[0.1],[0.1],[0.5]]) #position drone
+phat = array([[100],[0],[0]]) #position point d'attérissage
+p = array([[0],[0],[100]]) #position drone
 Q = champ(p,n,phat)
 print("n.Q",vdot(n, Q))
 print("valeur du champ au point",Q)
@@ -41,18 +41,18 @@ c = c.flatten()
 
 fig   = figure()
 ax    = Axes3D(fig)
-for x in arange(0,1,0.1):
-	for y in arange(0,1,0.1):
-		for z in arange(0,3,0.25):
-			draw_shampoing(array([[x,y,z]]).T)
+# for x in arange(0,1,0.1):
+# 	for y in arange(0,1,0.1):
+# 		for z in arange(0,3,0.25):
+# 			draw_shampoing(array([[x,y,z]]).T)
 
 
-phat = phat.flatten()
-ax.scatter(phat[0],phat[1],phat[2]) #phat
-n = n.flatten()
-ax.plot([phat[0],phat[0]+3*n[0]],[phat[1],phat[1]+3*n[1]],[phat[2],phat[2]+3*n[2]]) #vecteur normal à partir de phat
-ax.plot([a[0],b[0],c[0],a[0]],[a[1],b[1],c[1],a[1]],[a[2],b[2],c[2],a[2]]) #platforme
-pause(10)
+# phat = phat.flatten()
+# ax.scatter(phat[0],phat[1],phat[2]) #phat
+# n = n.flatten()
+# ax.plot([phat[0],phat[0]+3*n[0]],[phat[1],phat[1]+3*n[1]],[phat[2],phat[2]+3*n[2]]) #vecteur normal à partir de phat
+# ax.plot([a[0],b[0],c[0],a[0]],[a[1],b[1],c[1],a[1]],[a[2],b[2],c[2],a[2]]) #platforme
+# pause(10)
 """
 plt.figure()
 plt.xlim((-3,3))

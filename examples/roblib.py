@@ -332,12 +332,6 @@ def draw_disk(c,r,ax,col,alph=0.7,w=1):
     e.set_clip_box(ax.bbox)
     e.set_alpha(alph)  # transparency
     e.set_facecolor(col)
-<<<<<<< HEAD
-    
-    
-=======
-#
->>>>>>> bda97749ae8464c615184f41c620c67d6c6d2d49
 
 def draw_box(ax,x1,x2,y1,y2,col): 
     c=array([[x1],[y1]])    

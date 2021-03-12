@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="507103c5-1ad1-4114-a121-d864cdd8aaef" name="Default Changelist" comment="&quot;test to get pose&quot;">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Autoland.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Autoland.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/TelloMaison.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/TelloMaison.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/guidage.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/guidage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/roblib.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/roblib.py" afterDir="false" />
     </list>
@@ -29,7 +27,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../C++/crank/doc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -37,7 +35,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.TelloMaison">
-    <configuration name="TelloMaison" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="TelloMaison" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Autoland" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />

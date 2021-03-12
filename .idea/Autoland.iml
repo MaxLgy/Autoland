@@ -4,11 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
-=======
-    <orderEntry type="inheritedJdk" />
->>>>>>> bda97749ae8464c615184f41c620c67d6c6d2d49
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

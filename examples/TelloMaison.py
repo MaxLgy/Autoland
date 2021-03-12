@@ -5,6 +5,7 @@ import tello
 import time
 # import roblib
 from numpy import cos,sin,pi
+from guidage import *
 
 
 class Telloperso():
@@ -33,7 +34,7 @@ class Telloperso():
     def tkoff(self):
         try:
             self.tello.takeoff()
-            self.z = 100
+            self.z = self.tello.get_distance_tof()
             self.last_time_command = time.time()
         except:
             self.tello.land()
@@ -83,7 +84,8 @@ class Telloperso():
         #send_rc_control(self,left_right_velocity: int, forward_backward_velocity: int, up_down_velocity: int, yaw_velocity: int):
         self.x += self.last_v_forward_backw * (time.time()-self.last_time_command)
         self.y += self.last_v_left_right * (time.time()-self.last_time_command)
-        self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
+        # self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
+        self.z = self.tello.get_distance_tof()
         self.tello.send_rc_control(self.v_left_right, self.v_forward_backw, self.v_up_dow, 0)
         self.last_time_command = time.time()
         self.last_v_up_dow = self.v_up_dow
@@ -102,13 +104,22 @@ class Telloperso():
 
 
 if __name__ == '__main__':
+    print("yes")
+    print(vct_nrm(a,b,c))
     drone = Telloperso()
     drone.tkoff()
-    drone.v_forward_backw = 20
-    drone.v_left_right = 0
-    drone.v_up_dow = 0
-    drone.testrc()
-    time.sleep(3)
+    while drone.z>30:
+        p = array([[drone.x], [drone.y], [drone.z]])  # position drone
+        Q = champ(p, n, phat)
+        # print("distance au sol = ", drone.tello.get_distance_tof())
+        print("Q0 = ",2*Q[0,0])
+        print("Q1 = ", Q[0, 1])
+        print("Q2 = ", 3*Q[0, 2])
+        drone.v_forward_backw = int(Q[0,0])
+        drone.v_left_right = int(Q[0,1])
+        drone.v_up_dow = int(Q[0,2]*3)
+        drone.testrc()
+        time.sleep(3)
     drone.v_forward_backw = 0
     drone.v_left_right = 0
     drone.v_up_dow = 0

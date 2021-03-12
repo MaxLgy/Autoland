@@ -9,7 +9,6 @@ def vct_nrm(a,b,c):
 	n = cross(V1,V2).T
 	return n/norm(n)
 
-
 def champ(p,n,phat):
 	calc1 = cross(n.T,(p-phat).T)
 	pt_attract = 0.1*(phat-p)

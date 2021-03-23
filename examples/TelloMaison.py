@@ -96,19 +96,63 @@ class Telloperso():
     def state_vector(self):
         return array([[self.x], [self.y], [self.z]])
 
+
     def Rotation_matrix(self):
-        φ = self.tello.get_state_field('pitch')
-        θ = self.tello.get_state_field('roll')
-        ψ = self.tello.get_state_field('yaw')
-        return eulermat(φ,θ,ψ)
+        """Uses drone's sensors to compute the actual rotation matrix
+        Returns:
+            np matrix: Rotation matrix of the drone
+        """
+        pitch, yaw, roll = self.tello.get_pitch(), self.tello.get_yaw(), self.tello.get_roll()
+        pitch = (pitch*np.pi)/180
+        yaw = (yaw*np.pi)/180
+        roll = (roll*np.pi)/180
+        return eulermat(roll, pitch, yaw)
+    
+    
+    def control(self, X, R, Xbar, Rbar):
+        """Proportionnal controler to the drone
+        Arguments:
+            X, Xbar: np arrays (3, 1)
+            R, Rbar: np matrices (3, 3)
+        Returns:
+            Dict: rc commands
+        """
+        x, y, z = X.flatten()
+        xbar, ybar, zbar = Xbar.flatten()
+        
+        # height error
+        e_z = 1*(zbar-z)
+        
+        # heading error
+        e_R = np.linalg.inv(R) @ Rbar
+        e_yaw = 1*arctan2(e_R[1,0],e_R[0,0])
+        
+        # distance error modulated by the heading error (Gaussian)
+        e_dist = (1*((xbar - x)**2 + (ybar - y)**2)**0.5) * exp(-e_yaw**2)
+        
+        
+        return {"left_right_velocity": 0, "forward_backward_velocity":e_dist, "up_down_velocity":e_z, "yaw_velocity":e_yaw}
+        
 
 
 if __name__ == '__main__':
     print("yes")
     print(vct_nrm(a,b,c))
+    file_name = 'Mission_' + str(time.time()) + '.txt'
+    with open(file_name, 'w') as f:
+        f.write("# pitch,yaw,roll\n")
+    
+    
+    
     drone = Telloperso()
     drone.tkoff()
     while drone.z>30:
+        for k in range(2):
+            with open(file_name, 'a') as f:
+                f.write(str(drone.tello.get_pitch()) + ',' + str(drone.tello.get_yaw()) + ',' + str(drone.tello.get_roll()))
+                f.write("\n")
+            time.sleep(0.5)
+        
         p = array([[drone.x], [drone.y], [drone.z]])  # position drone
         Q = champ(p, n, phat)
         # print("distance au sol = ", drone.tello.get_distance_tof())
@@ -119,7 +163,8 @@ if __name__ == '__main__':
         drone.v_left_right = int(Q[0,1])
         drone.v_up_dow = int(Q[0,2]*3)
         drone.testrc()
-        time.sleep(3)
+        
+        
     drone.v_forward_backw = 0
     drone.v_left_right = 0
     drone.v_up_dow = 0

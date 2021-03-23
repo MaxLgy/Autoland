@@ -23,7 +23,7 @@ def draw_shampoing(p):
 	p = p.flatten()
 	ax.plot([p[0],p[0]+Q[0]],[p[1],p[1]+Q[1]],[p[2],p[2]+Q[2]],'g-') #champ au point p 
 
-a = array([[0,0,1]])	
+a = array([[0,0,0]])	
 b = array([[1,0,0]])
 c = array([[0,1,0]])
 

@@ -82,15 +82,15 @@ class Telloperso():
     def testrc(self):
         #self.tello.send_rc_control(20, 0, -20, 30)
         #send_rc_control(self,left_right_velocity: int, forward_backward_velocity: int, up_down_velocity: int, yaw_velocity: int):
-        self.x += self.last_v_forward_backw * (time.time()-self.last_time_command)
-        self.y += self.last_v_left_right * (time.time()-self.last_time_command)
-        # self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
-        self.z = self.tello.get_distance_tof()
+        # self.x += self.last_v_forward_backw * (time.time()-self.last_time_command)
+        # self.y += self.last_v_left_right * (time.time()-self.last_time_command)
+        # # self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
+        # self.z = self.tello.get_distance_tof()
         self.tello.send_rc_control(self.v_left_right, self.v_forward_backw, self.v_up_dow, 0)
-        self.last_time_command = time.time()
-        self.last_v_up_dow = self.v_up_dow
-        self.last_v_left_right = self.v_left_right
-        self.last_v_forward_backw = self.v_forward_backw
+        # self.last_time_command = time.time()
+        # self.last_v_up_dow = self.v_up_dow
+        # self.last_v_left_right = self.v_left_right
+        # self.last_v_forward_backw = self.v_forward_backw
         # time.sleep(5)
 
     def state_vector(self):

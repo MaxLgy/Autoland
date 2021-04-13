@@ -5,6 +5,7 @@ import cam_data_reading
 import numpy as np
 from TelloMaison import Telloperso
 from guidage import *
+import copy
 
 mutex = threading.Lock()
 DATA_CAM = {}
@@ -12,23 +13,20 @@ DATA_CAM = {}
 class SensorsThread(threading.Thread):
     def __init__(self, drone):
         threading.Thread.__init__(self)
-        self.drone = drone
 
     def run(self):
         time.sleep(5)
         t = time.time()
         while True:
-            time.sleep(1)
-            data = {}
+            mutex.acquire()
             try:
-                data["height"] = self.drone.get_height()
-                data["acceleration_x"] = self.drone.get_acceleration_x()
-                data["acceleration_y"] = self.drone.get_acceleration_y()
-                data["acceleration_z"] = self.drone.get_acceleration_z()
-            except:
-                data = {}
-            print(data)
-            print("Sensors : ", time.time() - t)
+                data_tmp = copy.deepcopy(DATA_CAM)
+            finally:
+                mutex.release()
+            drone.x = data_tmp["x"]
+            drone.y = data_tmp["y"]
+            drone.z = data_tmp["z"]
+            time.sleep(0.1)
 
 
 class CommandThread(threading.Thread):
@@ -37,11 +35,9 @@ class CommandThread(threading.Thread):
         self.drone = drone
     
     def run(self):
-        p = drone
-        t = time.time()
         self.drone.tkoff()
         phat = np.array([[0], [0], [0]])
-        while drone.z > 30:
+        while drone.tello.get_distance_tof() > 30:
             p = np.array([[drone.x], [drone.y], [drone.z]])  # position drone
             Q = champ(p, n, phat)
             drone.v_forward_backw = int(Q[0, 0])
@@ -53,7 +49,6 @@ class CommandThread(threading.Thread):
         self.drone.lnd()
 
 
-
 class CameraThread(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
@@ -63,7 +58,7 @@ class CameraThread(threading.Thread):
             data = cam_data_reading.read()
             mutex.acquire()
             try:
-                DATA_CAM = data
+                DATA_CAM = copy.deepcopy(data)
             finally:
                 mutex.release()
             time.sleep(0.1)
@@ -74,7 +69,6 @@ if __name__ == "__main__":
     c = CommandThread(drone)
     s = SensorsThread(drone)
     cam = CameraThread()
-    
     c.start()
     s.start()
     cam.start()

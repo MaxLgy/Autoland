@@ -1,6 +1,9 @@
 import threading
 import time
 import tello
+import numpy as np
+from TelloMaison import Telloperso
+from guidage import *
 
 
 class SensorsThread(threading.Thread):
@@ -31,21 +34,24 @@ class CommandThread(threading.Thread):
         self.drone = drone
     
     def run(self):
+        p = drone
         t = time.time()
-        self.drone.takeoff()
-        while time.time() - t < 30:
-            if (time.time () - t) % 0.5 < 0.25:
-                self.drone.send_rc_control(0,0,0,30)
-            else:
-                self.drone.send_rc_control(0,0,0,-30)
-            #print("Command : ", time.time() - t)
-            #time.sleep(0.5)
+        self.drone.tkoff()
+        phat = np.array([[0], [0], [0]])
+        while drone.z > 30:
+            p = np.array([[drone.x], [drone.y], [drone.z]])  # position drone
+            Q = champ(p, n, phat)
+            drone.v_forward_backw = int(Q[0, 0])
+            drone.v_left_right = int(Q[0, 1])
+            drone.v_up_dow = int(Q[0, 2] * 3)
+            drone.testrc()
+            time.sleep(0.1)
         time.sleep(0.5)
-        self.drone.land()
+        self.drone.lnd()
+
 
 if __name__ == "__main__":
-    drone = tello.Tello()
-    
+    drone = Telloperso()
     c = CommandThread(drone)
     s = SensorsThread(drone)
     

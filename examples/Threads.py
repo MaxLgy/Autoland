@@ -23,9 +23,15 @@ class SensorsThread(threading.Thread):
                 data_tmp = copy.deepcopy(DATA_CAM)
             finally:
                 mutex.release()
-            drone.x = data_tmp["x"]
-            drone.y = data_tmp["y"]
-            drone.z = data_tmp["z"]
+            try:
+                drone.x = data_tmp["x"]
+                drone.y = data_tmp["y"]
+                drone.z = data_tmp["z"]
+            except:
+                drone.x += drone.last_v_forward_backw * (time.time()-drone.last_time_command)
+                drone.y += drone.last_v_left_right * (time.time()-drone.last_time_command)
+                drone.z += drone.last_v_up_dow * (time.time()-drone.last_time_command)
+                drone.z = drone.tello.get_distance_tof()
             time.sleep(0.1)
 
 

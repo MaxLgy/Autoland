@@ -1,7 +1,10 @@
 import threading
 import time
 import tello
+import cam_data_reading
 
+mutex = threading.Lock()
+DATA_CAM = {}
 
 class SensorsThread(threading.Thread):
     def __init__(self, drone):
@@ -43,12 +46,30 @@ class CommandThread(threading.Thread):
         time.sleep(0.5)
         self.drone.land()
 
+
+class CameraThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        
+    def run(self):
+        while True:
+            data = cam_data_reading.read()
+            mutex.acquire()
+            try:
+                DATA_CAM = data
+            finally:
+                mutex.release()
+            time.sleep(0.1)
+
+
 if __name__ == "__main__":
     drone = tello.Tello()
     
     c = CommandThread(drone)
     s = SensorsThread(drone)
+    cam = CameraThread()
     
     c.start()
     s.start()
+    cam.start()
     

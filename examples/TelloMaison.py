@@ -30,6 +30,8 @@ class Telloperso():
         self.vdown = 25  # cm.s-1
         self.vrota = 60  # °.s-1
         self.offslp = 0  # s
+        self.yaw = 0
+        self.v_yaw = 0
 
     def tkoff(self):
         try:
@@ -86,7 +88,7 @@ class Telloperso():
         # self.y += self.last_v_left_right * (time.time()-self.last_time_command)
         # # self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
         # self.z = self.tello.get_distance_tof()
-        self.tello.send_rc_control(self.v_left_right, self.v_forward_backw, self.v_up_dow, 0)
+        self.tello.send_rc_control(self.v_left_right, self.v_forward_backw, self.v_up_dow, self.v_yaw)
         self.last_time_command = time.time()
         self.last_v_up_dow = self.v_up_dow
         self.last_v_left_right = self.v_left_right

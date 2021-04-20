@@ -11,8 +11,9 @@ def vct_nrm(a,b,c):
 
 def champ(p,n,phat):
 	calc1 = cross(n.T,(p-phat).T)
-	pt_attract = 0.1*(phat-p)
-	Q = 0.2*cross(n.T,calc1)+pt_attract.T
+	pt_attract = 1*(phat-p)
+	Q = 0.4*cross(n.T,calc1)+pt_attract.T
+	
 	return Q
 
 def draw_shampoing(p):

@@ -19,9 +19,9 @@ def read():
     data["y"] = -float(c[2])*100
     data["x"] = -float(c[3])*100
     data["z"] = float(c[4])*100
-    data["yaw"] = float(c[5])
+    data["roll"] = float(c[5])
     data["pitch"] = float(c[6])
-    data["roll"] = float(c[7])
+    data["yaw"] = float(c[7])
         
     return data
     

@@ -17,6 +17,7 @@ THREAD_ON = True
 def signal_handler(sig, frame):
     print('You pressed Ctrl+C!')
     THREAD_ON = False
+    drone.tello.send_rc_control(0,0,0,0)
     drone.tello.emergency()
     
     sys.exit(0)
@@ -53,19 +54,33 @@ class CommandThread(threading.Thread):
         self.drone = drone
     
     def run(self):
-        self.drone.tkoff()
-        phat = np.array([[-150], [-100], [-10]])
-        while drone.tello.get_distance_tof() > 30:
+        #self.drone.tkoff()
+        phat = np.array([[-80], [0], [-15]])
+        
+        p = np.array([[drone.x], [drone.y], [drone.z]])
+        Q = champ(p, n, phat)
+        Q = (100/np.pi)*np.arctan(Q/100)
+        #while np.linalg.norm(Q) > 3:
+        while True :#drone.tello.get_distance_tof() > 30:
             p = np.array([[drone.x], [drone.y], [drone.z]])  # position drone
             Q = champ(p, n, phat)
-            drone.v_forward_backw = int(Q[0, 0]*0.5)
-            drone.v_left_right = int(Q[0, 1]*0.5)
-            drone.v_up_dow = int(Q[0, 2] * 8)
+            Q = (100/np.pi)*np.arctan(Q/100)
+            print("Drone yaw", drone.yaw)
+            drone.v_yaw = 0#-int(((drone.yaw - 90)))
+            print("vyaw",drone.v_yaw)
+            
+            
+            drone.v_forward_backw = 0 #int(Q[0, 0])
+            drone.v_left_right = 0 #= 0#int(Q[0, 1])
+            drone.v_up_dow = 0#"int(Q[0, 2]*1.5)
             drone.testrc()
-            print(Q)
+            #print("Commande : ", Q)
+            #print("X = ", drone.x, " , Y = ", drone.y, " , Z = ", drone.z)
             time.sleep(0.1)
+            if THREAD_ON == False:
+                break
         time.sleep(0.5)
-        self.drone.lnd()
+        #self.drone.lnd()
 
 
 class CameraThread(threading.Thread):
@@ -84,6 +99,7 @@ class CameraThread(threading.Thread):
                 drone.x = data["x"]
                 drone.y = data["y"]
                 drone.z = data["z"]
+                drone.yaw = data["yaw"]
             except:
                 drone.x += drone.last_v_forward_backw * (time.time()-drone.last_time_command)
                 drone.y += drone.last_v_left_right * (time.time()-drone.last_time_command)

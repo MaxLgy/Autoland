@@ -60,7 +60,9 @@ class CommandThread(threading.Thread):
             else:
                 phat = np.array([[0], [0], [0]])
             p = np.array([[drone.x], [drone.y], [drone.z]])
-            Q = champ(p, n, phat)
+            
+            
+            Q = champ(p, n, phat, v_d)
             Q = (100/np.pi)*np.arctan(Q/100)
             
             if drone.reversed:
@@ -83,7 +85,6 @@ class CommandThread(threading.Thread):
             else:
                 drone.v_yaw = -int(((drone.yaw - 90)))
             
-            #print("Fw - bw : ", drone.v_forward_backw, " lft - rgt : ", drone.v_left_right, " u-d : ", drone.v_up_dow)
             print(drone.yaw)
             drone.testrc()
             time.sleep(0.1)

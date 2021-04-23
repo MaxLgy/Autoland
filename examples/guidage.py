@@ -9,10 +9,12 @@ def vct_nrm(a,b,c):
 	n = cross(V1,V2).T
 	return n/norm(n)
 
-def champ(p,n,phat):
+def champ(p,n,phat,v_d):
+	"""p position du drone, n vecteur normal à la plateforme, phat point cible où attérir, v_d vecteur vitesse de la plateforme"""
 	calc1 = cross(n.T,(p-phat).T)
 	pt_attract = 1*(phat-p)
-	Q = 0.4*cross(n.T,calc1)+pt_attract.T
+	vitesse_cible = 0.5*v_d
+	Q = 0.4*cross(n.T,calc1)+pt_attract.T + vitesse_cible
 	
 	return Q
 

@@ -11,5 +11,14 @@ ForceField      PoseStamped     "Direction du champ de potentiel"
 
 Mise en fonctionnement du drone et du  docking : 
 
+Mise en place Navcam : 
+
+
+
+Mise en place Drone : 
+
+1. Allumer le drone en appuyant sur son bouton latéral (et unique bouton)
+2. Se connecter sur le wifi généré par le drone (TelloXXXX) 
+3. Lancer le code python 
 
 

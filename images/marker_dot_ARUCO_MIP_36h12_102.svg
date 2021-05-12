@@ -1,0 +1,28 @@
+<?xml version="1.0" ?><svg height="300mm" shape-rendering="crispEdges" viewBox="0 0 300 300" width="300mm" xmlns="http://www.w3.org/2000/svg">
+<rect fill="white" height="300" width="300" x="0" y="0"/>
+<rect fill="black" height="180" width="180" x="60" y="60"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<circle cx="24" cy="24" fill="black" r="9"/>
+<circle cx="90" cy="24" fill="black" r="9"/>
+<circle cx="210" cy="24" fill="black" r="9"/>
+<circle cx="276" cy="24" fill="black" r="9"/>
+<circle cx="276" cy="111" fill="black" r="9"/>
+<circle cx="276" cy="207" fill="black" r="9"/>
+<circle cx="276" cy="276" fill="black" r="9"/>
+<circle cx="150" cy="276" fill="black" r="9"/>
+<circle cx="24" cy="276" fill="black" r="9"/>
+<circle cx="24" cy="177" fill="black" r="9"/>
+<circle cx="24" cy="81" fill="black" r="9"/>
+<path d="M127.5 82.5 L150.0 82.5 L150.0 105.0 L172.5 105.0 L172.5 127.5 L195.0 127.5 L195.0 150.0 L195.0 172.5 L172.5 172.5 L172.5 150.0 L150.0 150.0 L150.0 127.5 L127.5 127.5 L127.5 150.0 L105.0 150.0 L82.5 150.0 L82.5 127.5 L105.0 127.5 L105.0 105.0 L127.5 105.0 Z" fill="white"/><path d="M195.0 82.5 L217.5 82.5 L217.5 105.0 L217.5 127.5 L195.0 127.5 L195.0 105.0 Z" fill="white"/><path d="M105.0 172.5 L127.5 172.5 L127.5 195.0 L127.5 217.5 L105.0 217.5 L105.0 195.0 Z" fill="white"/></svg>

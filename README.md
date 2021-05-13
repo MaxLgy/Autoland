@@ -28,4 +28,4 @@ Mise en place Drone :
 
 1. Allumer le drone en appuyant sur son bouton latéral (et unique bouton)
 2. Se connecter sur le wifi généré par le drone (TelloXXXX) 
-3. Lancer le code python 
+3. Lancer le code python : examples/Threads.py : c'est le fichier qui contient notre main (fonction d'entrée de notre code)

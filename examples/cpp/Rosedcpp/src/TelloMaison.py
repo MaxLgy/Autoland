@@ -30,8 +30,6 @@ class Telloperso():
         self.vdown = 25  # cm.s-1
         self.vrota = 60  # °.s-1
         self.offslp = 0  # s
-        self.yaw = 0
-        self.v_yaw = 0
 
     def tkoff(self):
         try:
@@ -84,11 +82,12 @@ class Telloperso():
     def testrc(self):
         #self.tello.send_rc_control(20, 0, -20, 30)
         #send_rc_control(self,left_right_velocity: int, forward_backward_velocity: int, up_down_velocity: int, yaw_velocity: int):
-        # self.x += self.last_v_forward_backw * (time.time()-self.last_time_command)
-        # self.y += self.last_v_left_right * (time.time()-self.last_time_command)
-        # # self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
-        # self.z = self.tello.get_distance_tof()
-        self.tello.send_rc_control(self.v_left_right, self.v_forward_backw, self.v_up_dow, self.v_yaw)
+        print("speedx = ",self.tello.get_speed_x())
+        self.x += self.last_v_forward_backw * (time.time()-self.last_time_command)
+        self.y += self.last_v_left_right * (time.time()-self.last_time_command)
+        # self.z += self.last_v_up_dow * (time.time()-self.last_time_command)
+        self.z = self.tello.get_distance_tof()
+        self.tello.send_rc_control(self.v_left_right, self.v_forward_backw, self.v_up_dow, 0)
         self.last_time_command = time.time()
         self.last_v_up_dow = self.v_up_dow
         self.last_v_left_right = self.v_left_right
@@ -105,28 +104,31 @@ class Telloperso():
         return eulermat(φ,θ,ψ)
 
 
-# if __name__ == '__main__':
-#     print("yes")
-#     print(vct_nrm(a,b,c))
-#     drone = Telloperso()
-#     drone.tkoff()
-#     while drone.z>30:
-#         p = array([[drone.x], [drone.y], [drone.z]])  # position drone
-#         Q = champ(p, n, phat)
-#         # print("distance au sol = ", drone.tello.get_distance_tof())
-#         print("Q0 = ",2*Q[0,0])
-#         print("Q1 = ", Q[0, 1])
-#         print("Q2 = ", 3*Q[0, 2])
-#         drone.v_forward_backw = int(Q[0,0])
-#         drone.v_left_right = int(Q[0,1])
-#         drone.v_up_dow = int(Q[0,2]*3)
-#         drone.testrc()
-#         time.sleep(3)
-#     drone.v_forward_backw = 0
-#     drone.v_left_right = 0
-#     drone.v_up_dow = 0
-#     drone.testrc()
-#     print("x = ", drone.x)
-#     print("y = ", drone.y)
-#     print("z = ", drone.z)
-#     drone.lnd()
+if __name__ == '__main__':
+    print("yes")
+    print(vct_nrm(a,b,c))
+    drone = Telloperso()
+    drone.tkoff()
+    t0 = time.time()
+    while drone.z>0:
+        t = time.time()
+        phat = array([[200*sin((t-t0)*0.5)], [-100*sin((t-t0)*1)], [0]])
+        p = array([[drone.x], [drone.y], [drone.z]])  # position drone
+        Q = champ(p, n, phat)
+        # print("distance au sol = ", drone.tello.get_distance_tof())
+        print("Q0 = ",Q[0,0])
+        print("Q1 = ", Q[0, 1])
+        print("Q2 = ", 0*Q[0, 2])
+        drone.v_forward_backw = int(Q[0,0])
+        drone.v_left_right = int(Q[0,1])
+        drone.v_up_dow = int(Q[0,2]*0)
+        drone.testrc()
+        time.sleep(0.1)
+    drone.v_forward_backw = 0
+    drone.v_left_right = 0
+    drone.v_up_dow = 0
+    drone.testrc()
+    print("x = ", drone.x)
+    print("y = ", drone.y)
+    print("z = ", drone.z)
+    drone.lnd()

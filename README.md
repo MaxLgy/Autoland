@@ -1,13 +1,6 @@
 # Autoland
-#ABOARDEDROS
-#Publisher list:
-NAME     	      TYPE     	      DESCRIPTION
-Coorda   	      PoseStamped     "Coordonnée du point a de la zone d'atterrissage"
-Coordb   	      PoseStamped     "Coordonnée du point b de la zone d'atterrissage"
-Coordc   	      PoseStamped     "Coordonnée du point c de la zone d'atterrissage"
-Coorddrone      PoseStamped     "Coordonnée du drone dans le repère de la caméra"
-Coordobjectif   PoseStamped     "Coordonnée de l'atterrissage dans le repère de la caméra"
-ForceField      PoseStamped     "Direction du champ de potentiel"
+vidéo à récupérer pour voir les étapes d'avancement
+https://drive.google.com/file/d/1b7YXzXZivvZNM_Xcs4f1uyjZCCxyZShl/view?usp=sharing
 
 Mise en fonctionnement du drone et du  docking : 
 
